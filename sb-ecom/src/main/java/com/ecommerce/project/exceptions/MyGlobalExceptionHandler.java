@@ -1,0 +1,72 @@
+package com.ecommerce.project.exceptions;
+
+
+import com.ecommerce.project.payload.APIResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.access.AccessDeniedException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestControllerAdvice
+public class MyGlobalExceptionHandler {
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<APIResponse> myBadCredentialsException(BadCredentialsException e) {
+        APIResponse apiResponse = new APIResponse("Invalid username or password", false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<APIResponse> myUsernameNotFoundException(UsernameNotFoundException e) {
+        APIResponse apiResponse = new APIResponse(e.getMessage(), false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<APIResponse> myAccessDeniedException(AccessDeniedException e) {
+        APIResponse apiResponse = new APIResponse("Access Denied: " + e.getMessage(), false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> myMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        Map<String, String> response = new HashMap<>();
+        e.getBindingResult().getAllErrors().forEach(err -> {
+            String fieldName = ((FieldError) err).getField();
+            String message = err.getDefaultMessage();
+            response.put(fieldName, message);
+        });
+        return new ResponseEntity<Map<String, String>>(response,
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<APIResponse> myResourceNotFoundException(ResourceNotFoundException e) {
+        String message = e.getMessage();
+        APIResponse apiResponse = new APIResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(APIException.class)
+    public ResponseEntity<APIResponse> myAPIException(APIException e) {
+        String message = e.getMessage();
+        APIResponse apiResponse = new APIResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<APIResponse> myGenericException(Exception e) {
+        String message = e.getMessage() != null ? e.getMessage() : "An unexpected server error occurred";
+        APIResponse apiResponse = new APIResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
