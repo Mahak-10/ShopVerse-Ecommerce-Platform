@@ -266,7 +266,7 @@ graph TD
 ### 📂 File Structure Overview
 
 ```
-E-commerce/
+ShopVerse-Ecommerce-Platform/
 ├── sb-ecom/                             # Spring Boot Backend Project
 │   ├── src/main/java/com/ecommerce/project/
 │   │   ├── config/                      # App Constants & OpenAPI configuration
@@ -281,23 +281,31 @@ E-commerce/
 │   └── src/main/resources/
 │       └── application.properties       # Database & API Secret Properties
 │
-└── ecom-frontend/                       # React 19 + Vite Frontend Application
-    ├── src/
-    │   ├── api/                         # Axios Client Instance & JWT Interceptors
-    │   ├── components/                  # Shared & Feature UI Components
-    │   │   ├── admin/                   # Admin & Seller Console Dashboards
-    │   │   ├── auth/                    # Login & Registration Pages
-    │   │   ├── cart/                    # Cart Management UI
-    │   │   ├── checkout/                # Checkout Wizard, Address Selector, Stripe & PayPal Payment Forms
-    │   │   ├── products/                # Catalog Display & Filtering
-    │   │   ├── profile/                 # User Profile & Address Manager
-    │   │   └── shared/                  # Navbar, Footer, Loading Skeletons, Modals
-    │   ├── store/                       # Redux Toolkit Store, Actions & Reducers
-    │   ├── utils/                       # Price Formatters & Currency Utility Functions
-    │   ├── App.jsx                      # App Routes & Layout Navigation
-    │   └── main.jsx                     # Entrypoint & Redux Provider Wrapper
-    ├── package.json
-    └── vite.config.js
+├── ecom-frontend/                       # React 19 + Vite Frontend Application
+│   ├── src/
+│   │   ├── api/                         # Axios Client Instance & JWT Interceptors
+│   │   ├── components/                  # Shared & Feature UI Components
+│   │   │   ├── admin/                   # Admin & Seller Console Dashboards
+│   │   │   ├── auth/                    # Login & Registration Pages
+│   │   │   ├── cart/                    # Cart Management UI
+│   │   │   ├── checkout/                # Checkout Wizard, Address Selector, Stripe & PayPal Payment Forms
+│   │   │   ├── products/                # Catalog Display & Filtering
+│   │   │   ├── profile/                 # User Profile & Address Manager
+│   │   │   └── shared/                  # Navbar, Footer, Loading Skeletons, Modals
+│   │   ├── store/                       # Redux Toolkit Store, Actions & Reducers
+│   │   ├── utils/                       # Price Formatters & Currency Utility Functions
+│   │   ├── App.jsx                      # App Routes & Layout Navigation
+│   │   └── main.jsx                     # Entrypoint & Redux Provider Wrapper
+│   ├── package.json
+│   └── vite.config.js
+│
+├── database/                            # SQL Seed Scripts & Product Generators
+│   ├── seed_600_products_unsplash.sql
+│   ├── seed_600_products.sql
+│   ├── seed_products.sql
+│   └── generate_600_products.js
+│
+└── images/                              # Product Image Assets
 ```
 
 ---
